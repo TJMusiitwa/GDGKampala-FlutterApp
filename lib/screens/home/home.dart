@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Card(
-              elevation: 3.0,
+              elevation: 0.0,
               child: Container(
                 padding: const EdgeInsets.all(20.0),
                 height: MediaQuery.of(context).size.height * 0.25,
@@ -32,14 +32,14 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // SizedBox(
-            //   height: 20,
-            // ),
-            // Text(
-            //   'data',
-            //   textAlign: TextAlign.center,
-            //   style: Theme.of(context).textTheme.headline,
-            // ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              '''Google Developer Groups (GDG) Kampala is a user group for people who are interested in Google's developer technology; everything from the Android and App Engine platforms, to product APIs like the YouTube API and the Google Calendar API, to initiatives like OpenSocial.\nEvents are held monthly at the Outbox Hub on the fourth floor of Soliz House , Lumumba Avenue, Kampala.''',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.subhead,
+            ),
             SizedBox(
               height: 20,
             ),

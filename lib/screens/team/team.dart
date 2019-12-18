@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_dev_group_kampala/global.dart';
@@ -25,7 +26,8 @@ class _TeamScreenState extends State<TeamScreen> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasError)
             return Center(child: new Text('Error: ${snapshot.error}'));
-          if (!snapshot.hasData) return Center(child: CircularProgressIndicator());  
+          if (!snapshot.hasData)
+            return Center(child: CircularProgressIndicator());
           return ListView(
             children:
                 snapshot.data.documents.map<Widget>((DocumentSnapshot team) {
@@ -41,7 +43,8 @@ class _TeamScreenState extends State<TeamScreen> {
                           height: MediaQuery.of(context).size.height * 0.2,
                           width: MediaQuery.of(context).size.width * 0.3,
                         ),
-                        child: Image.network(team['image'], fit: BoxFit.cover),
+                        child: CachedNetworkImage(
+                            imageUrl: team['image'], fit: BoxFit.cover),
                       ),
                       SizedBox(
                         width: 20,

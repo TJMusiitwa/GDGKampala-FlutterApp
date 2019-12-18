@@ -3,7 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_dev_group_kampala/global.dart';
-//import 'package:url_launcher/url_launcher.dart';
+//import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EventDetails extends StatelessWidget {
   final String eventID;
@@ -39,7 +40,8 @@ class EventDetails extends StatelessWidget {
                   actions: <Widget>[
                     IconButton(
                       icon: Icon(Icons.event),
-                      color: Colors.white,
+                      color: Colors.red,
+                      tooltip: 'Add this event to your calendar',
                       onPressed: () {
                         final Event event = Event(
                           title: snapshot.data['event_name'],
@@ -50,6 +52,15 @@ class EventDetails extends StatelessWidget {
                         );
                         Add2Calendar.addEvent2Cal(event);
                       },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.location_on),
+                      color: Colors.red,
+                      onPressed: () async {
+                        final url =
+                            'https://www.google.com/maps/search/${Uri.encodeFull(snapshot.data['event_location'])}';
+                        launch(url);
+                      },
                     )
                   ],
                   elevation: 0,
@@ -59,6 +70,8 @@ class EventDetails extends StatelessWidget {
                       background: CachedNetworkImage(
                         imageUrl: snapshot.data['event_header'],
                         fit: BoxFit.cover,
+                        colorBlendMode: BlendMode.darken,
+                        color: Colors.black12,
                       ),
                     ),
                   ),
@@ -100,33 +113,39 @@ class EventDetails extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         elevation: 2.0,
         child: const Icon(Icons.local_activity),
-        //label: const Text('Add a task'),
-        tooltip: 'Add to calendar',
-        onPressed: () {},
+        tooltip: 'Reserve to Attend',
+        onPressed: () {
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text(
+                'This will give the ability to have the user reserve to attend the event.'),
+          ));
+        },
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        notchMargin: 4.0,
-        child: new Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            BackButton(),
-            IconButton(
-              icon: Icon(Icons.share),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(Icons.location_on),
-              onPressed: () async {
-                // final url = 'https://www.google.com/maps/search/${Uri.encodeFull(address)}';
-                // launch(url);
-              },
-            )
-          ],
-        ),
-      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      // bottomNavigationBar: BottomAppBar(
+      //   shape: CircularNotchedRectangle(),
+      //   notchMargin: 4.0,
+      //   child: new Row(
+      //     mainAxisSize: MainAxisSize.max,
+      //     mainAxisAlignment: MainAxisAlignment.start,
+      //     children: <Widget>[
+      //       BackButton(),
+      //       IconButton(
+      //         icon: Icon(Icons.share),
+      //         onPressed: () {
+      //           Share.share('Hey I am sharing this ');
+      //         },
+      //       ),
+      //       IconButton(
+      //         icon: Icon(Icons.location_on),
+      //         onPressed: () async {
+      //           //  final url = 'https://www.google.com/maps/search/${Uri.encodeFull(eventDoc.singleWhere(f)=>ds.data[''])}';
+      //           //  launch(url);
+      //         },
+      //       )
+      //     ],
+      //   ),
+      // ),
     );
   }
 }

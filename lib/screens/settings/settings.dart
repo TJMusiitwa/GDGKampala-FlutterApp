@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_dev_group_kampala/screens/settings/antiHPolicy.dart';
+import 'package:google_dev_group_kampala/screens/settings/codeOfConduct.dart';
 // import 'package:google_dev_group_kampala/providers/theme_provider.dart';
 // import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -20,43 +22,52 @@ class SettingsScreen extends StatelessWidget {
           children: <Widget>[
             ListTile(
               leading: Icon(Icons.mail),
-              title: Text('An email and you I will get back to you'),
+              title: Text('Email GDG Kampala'),
               onTap: () async {
                 var emailUrl =
-                    'mailto:gdgKla@gmail.com?subject=GDG Kampala Contact';
+                    'mailto:slugada@gmail.com?subject=GDG Kampala Contact';
                 var out = Uri.encodeFull(emailUrl);
                 launch(out);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.phone),
-              title: Text('Sometimes you gotta phone to really reach me'),
-              onTap: () async {
-                launch('tel:+256389000839');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.contact_phone),
-              title: Text('Whatsapp works for us too'),
-              onTap: () async {
-                launch('whatsapp://send?phone=+26703034859');
               },
             ),
             ListTile(
               leading: Icon(Icons.share),
               title: Text('Share the GDG Kampala App'),
               subtitle: Text('Tell your friends & collegues about the app'),
-              onTap: () {},
+              onTap: () {
+                Scaffold.of(context).showSnackBar(SnackBar(
+                  content: Text('This share link will be updated soon.'),
+                ));
+              },
             ),
             ListTile(
-              leading: Icon(Icons.assignment),
-              title: Text('Terms of use'),
-              onTap: () {},
+              leading: Icon(Icons.code),
+              subtitle: Text(
+                  'You are welcome to explore the source code for the app'),
+              title: Text('Github link'),
+              onTap: () {
+                launch('https://github.com/TJMusiitwa/GDGKampala-FlutterApp');
+              },
             ),
             ListTile(
-              leading: Icon(Icons.lock),
-              title: Text('Privacy Policy'),
-              onTap: () {},
+              title: Text('Code of Conduct'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => CodeOfConductPage(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              title: Text('Anti Harrasment Policy'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => AHPolicyPage(),
+                  ),
+                );
+              },
             ),
             ListTile(
               title: Text('Open sources licenses'),
