@@ -1,6 +1,8 @@
 # google_dev_group_kampala
 
-A new Flutter project.
+A Flutter Project that is meant to showcase and bring the events and information on the Google Developer Groups in Uganda to the community.
+
+[![Codemagic build status](https://api.codemagic.io/apps/5dfa3985306e034f58632993/5dfa3985306e034f58632992/status_badge.svg)](https://codemagic.io/apps/5dfa3985306e034f58632993/5dfa3985306e034f58632992/latest_build)
 
 ## Getting Started
 
