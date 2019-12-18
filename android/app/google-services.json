@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1090115729325",
+    "firebase_url": "https://gdgkampala-1570452632700.firebaseio.com",
+    "project_id": "gdgkampala-1570452632700",
+    "storage_bucket": "gdgkampala-1570452632700.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090115729325:android:3a76861d695b6e0cd25324",
+        "android_client_info": {
+          "package_name": "com.jonathanmusiitwa.google_dev_group_kampala"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1090115729325-83lp9c1q0ejmp2pegv3ipc90j2pq19d2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlaJJr3r6efkdDCDzVu7xg6uGdx22Avd4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1090115729325-83lp9c1q0ejmp2pegv3ipc90j2pq19d2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
