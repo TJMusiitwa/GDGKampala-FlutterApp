@@ -17,7 +17,7 @@ class EventsScreen extends StatelessWidget {
       body: StreamBuilder<QuerySnapshot>(
         stream: GDGKla.firestore
             .collection("events")
-            .orderBy("event_date", descending: true)
+            .orderBy("event_dates", descending: true)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasError)
@@ -72,7 +72,7 @@ class EventsScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 15.0,
                               ),
-                              Text(event['event_date']),
+                              Text(event['event_dates']),
                             ],
                           ),
                         ),

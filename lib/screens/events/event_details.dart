@@ -1,6 +1,5 @@
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_dev_group_kampala/global.dart';
 //import 'package:share/share.dart';
@@ -12,13 +11,9 @@ class EventDetails extends StatelessWidget {
   const EventDetails({Key key, this.eventID}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var eventDoc = GDGKla.firestore
-        .collection('events')
-        .document(eventID)
-        .get()
-        .then((DocumentSnapshot ds) {
-      return ds.data;
-    }).asStream();
+    var eventDoc =
+        GDGKla.firestore.collection('events').document(eventID).snapshots();
+
     return Scaffold(
       body: SafeArea(
         child: StreamBuilder(
@@ -32,10 +27,11 @@ class EventDetails extends StatelessWidget {
               slivers: <Widget>[
                 SliverAppBar(
                   pinned: true,
+                  floating: true,
                   expandedHeight: 300,
                   automaticallyImplyLeading: true,
                   leading: BackButton(
-                    color: Colors.white,
+                    color: Colors.blue,
                   ),
                   actions: <Widget>[
                     IconButton(
@@ -45,10 +41,13 @@ class EventDetails extends StatelessWidget {
                       onPressed: () {
                         final Event event = Event(
                           title: snapshot.data['event_name'],
+                          startDate:
+                              DateTime.tryParse(snapshot.data['event_dates']),
                           location: snapshot.data['event_location'],
                           allDay: true,
-                          startDate: DateTime.now(),
-                          endDate: DateTime.now(),
+                          description: snapshot.data['event_details'],
+                          endDate:
+                              DateTime.tryParse(snapshot.data['event_dates']),
                         );
                         Add2Calendar.addEvent2Cal(event);
                       },
@@ -77,7 +76,8 @@ class EventDetails extends StatelessWidget {
                   ),
                 ),
                 SliverFillRemaining(
-                  child: Padding(
+                  hasScrollBody: false,
+                  child: SingleChildScrollView(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -91,9 +91,9 @@ class EventDetails extends StatelessWidget {
                               .copyWith(fontSize: 25.0),
                         ),
                         SizedBox(height: 10),
-                        Text(snapshot.data['event_location']),
+                        Text(snapshot.data['event_date']),
                         SizedBox(height: 10),
-                        Text(snapshot.data['event_address']),
+                        Text(snapshot.data['event_location']),
                         SizedBox(height: 10),
                         Text(
                           snapshot.data['event_details'],

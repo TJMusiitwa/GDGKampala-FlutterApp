@@ -65,7 +65,7 @@ class HomeScreen extends StatelessWidget {
               child: StreamBuilder<QuerySnapshot>(
                 stream: GDGKla.firestore
                     .collection('events')
-                    .orderBy("event_date", descending: true)
+                    .orderBy("event_dates", descending: true)
                     .snapshots()
                     .take(4),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -98,7 +98,7 @@ class HomeScreen extends StatelessWidget {
                                     style: Theme.of(context)
                                         .textTheme
                                         .title
-                                        .copyWith(fontSize: 23),
+                                        .copyWith(fontSize: 20),
                                     //overflow: TextOverflow.ellipsis,
                                   ),
                                   SizedBox(
@@ -111,6 +111,7 @@ class HomeScreen extends StatelessWidget {
                                         .textTheme
                                         .body1
                                         .copyWith(fontSize: 20),
+                                    overflow: TextOverflow.clip,
                                   ),
                                 ],
                               ),

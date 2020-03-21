@@ -1,7 +1,8 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:google_dev_group_kampala/screens/events/events.dart';
 import 'package:google_dev_group_kampala/screens/home/home.dart';
 import 'package:google_dev_group_kampala/screens/map/chapters_map.dart';
+import 'package:google_dev_group_kampala/screens/news_blog/news_blog_page.dart';
 import 'package:google_dev_group_kampala/screens/settings/settings.dart';
 import 'package:google_dev_group_kampala/screens/team/team.dart';
 
@@ -15,7 +16,8 @@ class _GDGBottomNavState extends State<GDGBottomNav> {
 
   var _screens = [
     HomeScreen(),
-    EventsScreen(),
+    NewsBlogPage(),
+    //EventsScreen(),
     TeamScreen(),
     ChaptersMapScreen(),
     SettingsScreen(),
@@ -24,7 +26,20 @@ class _GDGBottomNavState extends State<GDGBottomNav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens.elementAt(_currentScreen),
+      body: PageTransitionSwitcher(
+        transitionBuilder: (
+          Widget child,
+          Animation<double> animation,
+          Animation<double> secondaryAnimation,
+        ) {
+          return FadeThroughTransition(
+            animation: animation,
+            secondaryAnimation: secondaryAnimation,
+            child: child,
+          );
+        },
+        child: _screens.elementAt(_currentScreen),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
@@ -32,8 +47,8 @@ class _GDGBottomNavState extends State<GDGBottomNav> {
             title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.event),
-            title: Text('Events'),
+            icon: Icon(Icons.assignment),
+            title: Text('News'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.people),
@@ -48,7 +63,8 @@ class _GDGBottomNavState extends State<GDGBottomNav> {
             title: Text('Settings'),
           ),
         ],
-        selectedItemColor: Colors.blue[900],
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.lightBlue[900],
         unselectedItemColor: Colors.grey,
         currentIndex: _currentScreen,
         onTap: (int index) {

@@ -26,8 +26,14 @@ dependencies:
   add_2_calendar: ^1.3.1
   provider: ^3.2.0
   google_maps_flutter: ^0.5.21+14
-  cached_network_image: ^1.1.3
+  cached_network_image: ^2.0.0-rc
   share: ^0.6.3+3
+  #add_to_calendar: ^1.2.0
+  flutter_markdown: ^0.3.4
+  html2md: ^0.5.1
+  quick_actions: ^0.4.0+2
+  theme_provider: ^0.3.3
+  animations: ^1.0.0+5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

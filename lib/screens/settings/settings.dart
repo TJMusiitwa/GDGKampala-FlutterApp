@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_dev_group_kampala/screens/settings/antiHPolicy.dart';
 import 'package:google_dev_group_kampala/screens/settings/codeOfConduct.dart';
+import 'package:theme_provider/theme_provider.dart';
 // import 'package:google_dev_group_kampala/providers/theme_provider.dart';
 // import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -75,13 +76,10 @@ class SettingsScreen extends StatelessWidget {
                 showLicensePage(context: context);
               },
             ),
-            // SwitchListTile.adaptive(
-            //   value: themeProvider.isLightTheme,
-            //   onChanged: (val) {
-            //     themeProvider.setThemeData(val);
-            //   },
-            //   title: Text('Change Theme'),
-            // ),
+            ListTile(
+              title: Text('Switch Theme'),
+              trailing: CycleThemeIconButton(),
+            ),
             Expanded(
               child: Align(
                 alignment: FractionalOffset.bottomCenter,
