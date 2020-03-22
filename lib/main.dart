@@ -22,20 +22,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //final generalTheme = Provider.of<ThemeProvider>(context);
-    return QuickActionsManager(
-      child: ThemeProvider(
-        saveThemesOnChange: true,
-        loadThemeOnInit: true,
-        child: ThemeConsumer(
-          child: Builder(
-            builder: (themeContext) {
-              return MaterialApp(
-                title: 'GDG Kampala',
-                theme: ThemeProvider.themeOf(themeContext).data,
-                home: GDGBottomNav(),
-              );
-            },
-          ),
+    return ThemeProvider(
+      saveThemesOnChange: true,
+      loadThemeOnInit: true,
+      child: ThemeConsumer(
+        child: Builder(
+          builder: (themeContext) {
+            return MaterialApp(
+              title: 'GDG Kampala',
+              theme: ThemeProvider.themeOf(themeContext).data,
+              home: QuickActionsManager(child: GDGBottomNav()),
+            );
+          },
         ),
       ),
     );
