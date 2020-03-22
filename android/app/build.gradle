@@ -21,7 +21,7 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-def googlemap_key = localProperties.getProperty('googlemap.key')
+def googlemap_key = localProperties.getProperty('googlemap_key')
 if (googlemap_key == null) {
     throw new GradleException("Google Map API Key not set. Define location with googlemap.key in the local.properties file.")
 }
