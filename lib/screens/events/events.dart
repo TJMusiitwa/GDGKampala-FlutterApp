@@ -2,10 +2,17 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_dev_group_kampala/global.dart';
-
+import 'package:intl/intl.dart';
 import 'event_details.dart';
 
-class EventsScreen extends StatelessWidget {
+class EventsScreen extends StatefulWidget {
+  @override
+  _EventsScreenState createState() => _EventsScreenState();
+}
+
+class _EventsScreenState extends State<EventsScreen> {
+  var dateFormat = DateFormat.yMd().format(DateTime.now());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,6 +24,7 @@ class EventsScreen extends StatelessWidget {
       body: StreamBuilder<QuerySnapshot>(
         stream: GDGKla.firestore
             .collection("events")
+            .where("event_dates", isGreaterThanOrEqualTo: '2020-05-01')
             .orderBy("event_dates", descending: true)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -24,6 +32,10 @@ class EventsScreen extends StatelessWidget {
             return Center(child: new Text('Error: ${snapshot.error}'));
           if (!snapshot.hasData)
             return Center(child: CircularProgressIndicator());
+          if (snapshot.hasData == null) {
+            return Center(
+                child: Text('No upcoming events. Check back here soon'));
+          }
           return ListView(
             children:
                 snapshot.data.documents.map<Widget>((DocumentSnapshot event) {
@@ -68,7 +80,7 @@ class EventsScreen extends StatelessWidget {
                             children: <Widget>[
                               Text(event['event_name'],
                                   softWrap: true,
-                                  style: Theme.of(context).textTheme.headline),
+                                  style: Theme.of(context).textTheme.headline5),
                               const SizedBox(
                                 height: 15.0,
                               ),

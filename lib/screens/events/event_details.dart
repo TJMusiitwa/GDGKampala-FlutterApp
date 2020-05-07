@@ -87,7 +87,7 @@ class EventDetails extends StatelessWidget {
                           snapshot.data['event_name'],
                           style: Theme.of(context)
                               .textTheme
-                              .title
+                              .headline6
                               .copyWith(fontSize: 25.0),
                         ),
                         SizedBox(height: 10),
@@ -99,7 +99,7 @@ class EventDetails extends StatelessWidget {
                           snapshot.data['event_details'],
                           textAlign: TextAlign.justify,
                           softWrap: true,
-                          style: Theme.of(context).textTheme.subhead,
+                          style: Theme.of(context).textTheme.subtitle1,
                         ),
                       ],
                     ),

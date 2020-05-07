@@ -88,7 +88,7 @@ class SettingsScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: Theme.of(context)
                       .textTheme
-                      .subhead
+                      .subtitle1
                       .copyWith(fontSize: 20),
                 ),
               ),

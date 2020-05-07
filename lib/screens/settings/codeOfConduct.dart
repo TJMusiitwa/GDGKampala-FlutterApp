@@ -14,12 +14,10 @@ class CodeOfConductPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Text(
-              '''When you join our programs, you’re joining a community. And like any growing community, a few ground rules about expected behavior are good for everyone. These guidelines cover both online (e.g. mailing lists, social channels) and offline (e.g. in-person meetups) behavior.
+                '''When you join our programs, you’re joining a community. And like any growing community, a few ground rules about expected behavior are good for everyone. These guidelines cover both online (e.g. mailing lists, social channels) and offline (e.g. in-person meetups) behavior.
 
 \nViolations of this code of conduct can result in members being removed from the program. Use your best judgement, and if you’d like more clarity or have questions feel free to reach out.''',
-              softWrap: true,
-              style: Theme.of(context).textTheme.subhead,
-            ),
+                softWrap: true, style: Theme.of(context).textTheme.subtitle1),
             SizedBox(
               height: 20,
             ),

@@ -17,7 +17,7 @@ class AHPolicyPage extends StatelessWidget {
           softWrap: true,
           textWidthBasis: TextWidthBasis.parent,
           textAlign: TextAlign.justify,
-          style: Theme.of(context).textTheme.body1,
+          style: Theme.of(context).textTheme.bodyText2,
         ),
       ),
     );

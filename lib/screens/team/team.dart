@@ -55,7 +55,7 @@ class _TeamScreenState extends State<TeamScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             Text(team['name'],
-                                style: Theme.of(context).textTheme.title),
+                                style: Theme.of(context).textTheme.headline6),
                             SizedBox(
                               height: 5,
                             ),
@@ -70,7 +70,7 @@ class _TeamScreenState extends State<TeamScreen> {
                               height: 10.0,
                             ),
                             Text(team['position'],
-                                style: Theme.of(context).textTheme.subtitle),
+                                style: Theme.of(context).textTheme.subtitle2),
                             SizedBox(
                               height: 10.0,
                             ),

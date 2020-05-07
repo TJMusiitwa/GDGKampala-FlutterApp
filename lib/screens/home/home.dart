@@ -3,8 +3,93 @@ import 'package:flutter/material.dart';
 import 'package:google_dev_group_kampala/global.dart';
 import 'package:google_dev_group_kampala/screens/events/event_details.dart';
 import 'package:google_dev_group_kampala/screens/events/events.dart';
+import 'package:intl/intl.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeEventsList extends StatelessWidget {
+  final String dateFormat;
+
+  const HomeEventsList({
+    Key key,
+    @required this.dateFormat,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 200,
+      child: StreamBuilder<QuerySnapshot>(
+        stream: GDGKla.firestore
+            .collection('events')
+            .where("event_dates", isGreaterThanOrEqualTo: '2020-05-01')
+            .orderBy("event_dates", descending: true)
+            .snapshots()
+            .take(4),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+          if (!snapshot.hasData)
+            return Center(child: CircularProgressIndicator());
+          return ListView(
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            children: snapshot.data.documents
+                .map<Widget>((DocumentSnapshot homeEventCard) {
+              return SizedBox(
+                width: 200,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) =>
+                            EventDetails(eventID: homeEventCard.documentID)));
+                  },
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            homeEventCard['event_name'],
+                            softWrap: true,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6
+                                .copyWith(fontSize: 20),
+                            //overflow: TextOverflow.ellipsis,
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            homeEventCard['event_date'],
+                            softWrap: true,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                .copyWith(fontSize: 20),
+                            overflow: TextOverflow.clip,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }).toList(),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  var dateFormat = DateFormat.yMd().format(DateTime.now().toUtc());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +123,7 @@ class HomeScreen extends StatelessWidget {
             Text(
               '''Google Developer Groups (GDG) Kampala is a user group for people who are interested in Google's developer technology; everything from the Android and App Engine platforms, to product APIs like the YouTube API and the Google Calendar API, to initiatives like OpenSocial.\nEvents are held monthly at the Outbox Hub on the fourth floor of Soliz House , Lumumba Avenue, Kampala.''',
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.subhead,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
             SizedBox(
               height: 20,
@@ -60,70 +145,7 @@ class HomeScreen extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            Container(
-              height: 200,
-              child: StreamBuilder<QuerySnapshot>(
-                stream: GDGKla.firestore
-                    .collection('events')
-                    .orderBy("event_dates", descending: true)
-                    .snapshots()
-                    .take(4),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasError)
-                    return new Text('Error: ${snapshot.error}');
-                  if (!snapshot.hasData)
-                    return Center(child: CircularProgressIndicator());
-                  return ListView(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    children: snapshot.data.documents
-                        .map<Widget>((DocumentSnapshot homeEventCard) {
-                      return SizedBox(
-                        width: 200,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (_) => EventDetails(
-                                    eventID: homeEventCard.documentID)));
-                          },
-                          child: Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    homeEventCard['event_name'],
-                                    softWrap: true,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .title
-                                        .copyWith(fontSize: 20),
-                                    //overflow: TextOverflow.ellipsis,
-                                  ),
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  Text(
-                                    homeEventCard['event_date'],
-                                    softWrap: true,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .body1
-                                        .copyWith(fontSize: 20),
-                                    overflow: TextOverflow.clip,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  );
-                },
-              ),
-            ),
+            HomeEventsList(dateFormat: dateFormat),
           ],
         ),
       ),
