@@ -1,4 +1,7 @@
 name: GDGKamplaProfile
+env:
+  googlemap_key: ${{ secrets.GOOGLE_MAP_API_KEY }}
+
 
 # This workflow is triggered on pushes to the repository.
 
